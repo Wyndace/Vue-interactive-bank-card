@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CardChecker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="card" :style="{backgroundColor: backCard}" id="app">
+        <!-- Здесь будет выводиться ЛОГОТИП БАНКА -->
+        <div class="bank">
+            <img :src="bank">
+        </div>
+
+        <!-- Поле для ввода НОМЕРА КАРТЫ -->
+        <div class="number-container">
+            <input :style="{backgroundColor: backInput, color: textColor}"
+                :class="{'input-ok': isOk, 'input-err': isErr}" v-model="number" type="text" placeholder="Номер карты">
+            <div :class="{'status-ok': isOk, 'status-err': isErr}" class="status"></div>
+        </div>
+
+        <!-- Поле для ввода ИМЕНИ ДЕРЖАТЕЛЯ -->
+        <div class="name-container">
+            <input :style="{backgroundColor: backInput, color: textColor}"
+                :class="{'input-ok': isOkName, 'input-err': isErrName}" v-model="name" type="text"
+                placeholder="Имя держателя">
+            <div :class="{'status-ok': isOkName, 'status-err': isErrName}" class=" status"></div>
+        </div>
+
+        <!-- Логотип ПЛАТЕЖНОЙ СИСТЕМЫ -->
+        <div class="pay-system">
+            <img :src="img">
+        </div>
+
+    </div>
+    <script src="https:/unpkg.com/vue"></script>
+    <script>
+        "use sctrict";
+        let app = new Vue({
+            el: '#app',
+            data: {
+                number: '521324',
+                name: '',
+                backCard: '#eff5f8',
+                backInput: '#f6fcff',
+                textColor: '#555555',
+            },
+            computed: {
+                img() {
+                    let firstNum = this.number[0];
+                    if (firstNum == '2') {
+                        return './img/systems/mir.png';
+                    } else if (firstNum == '3') {
+                        return './img/systems/american-exp.png';
+                    } else if (firstNum == '4') {
+                        return './img/systems/visa.png';
+                    } else if (firstNum == '5') {
+                        return './img/systems/mastercard.png';
+                    } else if (firstNum == '6') {
+                        return `./img/system/maestro.png`;
+                    } else {
+                        return '';
+                    }
+                },
+                isOk() {
+                    if (this.number && this.number.length == 15) {
+                        return true;
+                    }
+                },
+                isErr() {
+                    if (this.number && this.number.length != 15) {
+                        return true;
+                    }
+                },
+                bank() {
+                    //Alfa
+                    if (this.number.substring(0, 6) == '521178' || this.number.substring(0, 6) == '548673' ||
+                        this.number.substring(0, 6) == '548601' || this.number.substring(0, 6) == '415428' ||
+                        this.number.substring(0, 6) == '676371' || this.number.substring(0, 6) == '477964' ||
+                        this.number.substring(0, 6) == '479004') {
+                        this.backCard = '#a62626';
+                        this.backInput = '#be1414';
+                        this.textColor = '#ffffff';
+                        return './img/banks/alpha.png';
+                    } else if (
+                        //VTB
+                        this.number.substring(0, 6) == '427229' || this.number.substring(0, 6) == '527883' ||
+                        this.number.substring(0, 6) == '447520') {
+                        this.backCard = '#3561b0';
+                        this.backInput = '#012577';
+                        this.textColor = '#ffffff';
+                        return './img/banks/vtb.png';
+                    } else if (
+                        //GAZPROM
+                        this.number.substring(0, 6) == '548999' || this.number.substring(0, 6) == '526483') {
+                        this.backCard = '#b89c3d';
+                        this.backInput = '#89752e';
+                        this.textColor = '#ffffff';
+                        return './img/banks/gazprombank.png';
+                    } else if (
+                        //MTS
+                        this.number.substring(0, 6) == '533736' || this.number.substring(0, 6) == '540616') {
+                        this.backCard = '#c61717';
+                        this.backInput = '#871010';
+                        this.textColor = '#ffffff';
+                        return './img/banks/mts-bank.png';
+                    } else if (
+                        //OTKRYTIE
+                        this.number.substring(0, 6) == '434146' || this.number.substring(0, 6) == '405870' ||
+                        this.number.substring(0, 6) == '544573' || this.number.substring(0, 6) == '532301') {
+                        this.backCard = '#007ba4';
+                        this.backInput = '#006282';
+                        this.textColor = '#ffffff';
+                        return './img/banks/otkrytie.png';
+                    } else if (
+                        //ROS
+                        this.number.substring(0, 6) == '440503' || this.number.substring(0, 6) == '554761') {
+                        this.backCard = '#444444';
+                        this.backInput = '#373737';
+                        this.textColor = '#ffffff';
+                        return './img/banks/rosbank.png';
+                    } else if (
+                        //RUSSIAN STANDART
+                        this.number.substring(0, 6) == '513691' || this.number.substring(0, 6) == '510047') {
+                        this.backCard = '#526c31';
+                        this.backInput = '#3e5225';
+                        this.textColor = '#ffffff';
+                        return './img/banks/russian_standart.png';
+                    } else if (
+                        //RAIFAIZEN
+                        this.number.substring(0, 6) == '462730' || this.number.substring(0, 6) == '462729') {
+                        this.backCard = '#f7ea26';
+                        this.backInput = '#e3d909';
+                        this.textColor = '#555555';
+                        return './img/banks/raiffaizen.png';
+                    } else if (
+                        //SBER
+                        this.number.substring(0, 6) == '427683' || this.number.substring(0, 6) == '427901' ||
+                        this.number.substring(0, 6) == '427644' || this.number.substring(0, 6) == '427601' ||
+                        this.number.substring(0, 6) == '427901' || this.number.substring(0, 6) == '427631' ||
+                        this.number.substring(0, 6) == '427638' || this.number.substring(0, 6) == '546938') {
+                        this.backCard = '#00bf86';
+                        this.backInput = '#009b6c';
+                        this.textColor = '#ffffff';
+                        return './img/banks/sberbank.png';
+                    } else if (
+                        //TINKOFF
+                        this.number.substring(0, 6) == '521324' || this.number.substring(0, 6) == '437773') {
+                        this.backCard = '#e0e2e4';
+                        this.backInput = '#d1d5d8';
+                        this.textColor = '#555555';
+                        return './img/banks/tinkoff.png';
+                    } else {
+                        this.backCard = '#eff5f8';
+                        this.backInput = '#f6fcff';
+                        this.textColor = '#555555';
+                        return '';
+                    }
+                },
+                isOkName() {
+                    if (this.name) {
+                        this.name = this.name.toUpperCase();
+                        let cardName = this.name;
+                        cardName = cardName.split('');
+                        let alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+                        alph = alph.split('');
+                        let lettersCount = 0;
+                        alph.forEach(letterOfAlph => {
+                            cardName.forEach(letter => {
+                                if (letter.includes(letterOfAlph)) {
+                                    lettersCount++;
+                                }
+                            })
+
+                        });
+                        if (lettersCount == cardName.length) {
+                            console.log('isOk: Yay, Count: ', lettersCount, cardName);
+                            return true;
+                        } else {
+                            console.log('isOk: Nope, Count: ', lettersCount, cardName);
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                },
+
+                isErrName() {
+                    if (this.name) {
+                        let cardName = this.name;
+                        cardName = cardName.split('');
+                        let alph = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+                        alph = alph.split('');
+                        let lettersCount1 = 0;
+                        alph.forEach(letterOfAlph => {
+                            cardName.forEach(letter => {
+                                if (letter.includes(letterOfAlph)) {
+                                    lettersCount1++;
+                                }
+                            })
+
+                        });
+                        if (lettersCount1 != cardName.length) {
+                            console.log('isErr: Yay, Count: ', lettersCount1, cardName);
+                            return true;
+                        } else {
+                            console.log('isErr: Nope, Count: ', lettersCount1, cardName);
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
